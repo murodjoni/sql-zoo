@@ -107,3 +107,32 @@ WHERE
             AND gdp > 0
     )
     --7
+    --Find the largest country (by area) in each continent, show the continent, the name and the area:
+    --The above example is known as a correlated or synchronized sub-query.
+SELECT
+    continent,
+    name,
+    area
+FROM
+    world x
+WHERE
+    area >= ALL (
+        SELECT
+            area
+        FROM
+            world y
+        WHERE
+            y.continent = x.continent
+            AND population > 0
+    )
+    --8
+    --List each continent and the name of the country that comes first alphabetically.
+SELECT
+    continent,
+    name
+FROM
+    world
+GROUP BY
+    continent
+ORDER BY
+    name
